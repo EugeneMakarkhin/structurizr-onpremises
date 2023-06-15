@@ -44,6 +44,9 @@ public final class SecurityUtils {
                 if (authentication.getCredentials() instanceof SAMLCredential) {
                     SAMLCredential samlCredential = (SAMLCredential) authentication.getCredentials();
                     String emailAddress = samlCredential.getAttributeAsString(SAML_EMAIL_ADDRESS_ATTRIBUTE);
+                    if (emailAddress == null) {
+                    	emailAddress = samlCredential.getNameID().getValue();
+                    }
 
                     String[] groups = samlCredential.getAttributeAsStringArray(SAML_GROUP_ATTRIBUTE);
                     if (groups != null) {
